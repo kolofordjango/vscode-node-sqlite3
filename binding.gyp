@@ -6,7 +6,7 @@
   },
   "targets": [
     {
-      "target_name": "vscode-sqlite3",
+      "target_name": "<(module_name)",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "xcode_settings": { "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
@@ -62,18 +62,18 @@
         "src/node_sqlite3.cc",
         "src/statement.cc"
       ],
-      "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS=1", "NODE_API_SWALLOW_UNTHROWABLE_EXCEPTIONS" ]
+      "defines": [ "NAPI_VERSION=<(napi_build_version)", "NAPI_DISABLE_CPP_EXCEPTIONS=1", "NODE_API_SWALLOW_UNTHROWABLE_EXCEPTIONS" ]
     },
-    #{
-    #  "target_name": "action_after_build",
-    #  "type": "none",
-    #  "dependencies": [ "<(module_name)" ],
-    #  "copies": [
-    #      {
-    #        "files": [ "<(PRODUCT_DIR)/<(module_name).node" ],
-    #        "destination": "<(module_path)"
-    #      }
-    #  ]
-    #}
+    {
+     "target_name": "action_after_build",
+     "type": "none",
+     "dependencies": [ "<(module_name)" ],
+     "copies": [
+         {
+           "files": [ "<(PRODUCT_DIR)/<(module_name).node" ],
+           "destination": "<(module_path)"
+         }
+     ]
+    }
   ]
 }
